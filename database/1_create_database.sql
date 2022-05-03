@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS filmPipa;
+CREATE DATABASE filmPipa CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
