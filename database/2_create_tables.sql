@@ -2,57 +2,52 @@ DROP TABLE IF EXISTS filmek;
 DROP TABLE IF EXISTS kategoria;
 DROP TABLE IF EXISTS sorozatok;
 DROP TABLE IF EXISTS resz;
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS korosztaly;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS saw;
 
 
 CREATE TABLE filmek (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 cim VARCHAR(255) NOT NULL,
 hossz INT NOT NULL,
 kategoria INT NOT NULL,
-korosztaly INT NOT NULL,
-borito VARCHAR NOT NULL);
+borito VARCHAR(255) NOT NULL);
 
 CREATE TABLE kategoria (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 name VARCHAR(255) NOT NULL);
 
 CREATE TABLE sorozatok (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 evad INT NOT NULL,
 resz INT NOT NULL,
 cim VARCHAR(255) NOT NULL,
 kategoria INT NOT NULL,
-korosztaly INT NOT NULL,
-borito VARCHAR NOT NULL);
+borito VARCHAR(255) NOT NULL);
 
 CREATE TABLE resz (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 evadSzam INT NOT NULL,
 reszSzam INT NOT NULL,
-cim INT NOT NULL,
-hossz INT NOT NULL);
+cim VARCHAR(255) NOT NULL,
+hossz INT NOT NULL,
+sorozatid INT NOT NULL);
 
-CREATE TABLE user (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-username INT NOT NULL,
-email INT NOT NULL,
-password INT NOT NULL,
-lattamFilm INT NOT NULL,
-lattamResz INT NOT NULL,
-profilkep VARCHAR NOT NULL);
+CREATE TABLE users (
+uid INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+username VARCHAR(45) NOT NULL,
+password VARCHAR(45) NOT NULL,
+email VARCHAR(45) NOT NULL,
+permission INT NOT NULL);
 
-CREATE TABLE korosztaly (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-tol INT NOT NULL,
-nev VARCHAR(255) NOT NULL);
+CREATE TABLE saw (
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+uid INT NOT NULL,
+eid INT NOT NULL);
 
 ALTER TABLE filmek ADD CONSTRAINT filmek_kategoria_kategoria_id FOREIGN KEY (kategoria) REFERENCES kategoria(id);
-ALTER TABLE filmek ADD CONSTRAINT filmek_korosztaly_korosztaly_id FOREIGN KEY (korosztaly) REFERENCES korosztaly(id);
 ALTER TABLE sorozatok ADD CONSTRAINT sorozatok_kategoria_kategoria_id FOREIGN KEY (kategoria) REFERENCES kategoria(id);
-ALTER TABLE sorozatok ADD CONSTRAINT sorozatok_korosztaly_korosztaly_id FOREIGN KEY (korosztaly) REFERENCES korosztaly(id);
-ALTER TABLE resz ADD CONSTRAINT resz_evadSzam_sorozatok_evad FOREIGN KEY (evadSzam) REFERENCES sorozatok(evad);
-ALTER TABLE resz ADD CONSTRAINT resz_reszSzam_sorozatok_resz FOREIGN KEY (reszSzam) REFERENCES sorozatok(resz);
-ALTER TABLE user ADD CONSTRAINT user_lattamFilm_filmek_id FOREIGN KEY (lattamFilm) REFERENCES filmek(id);
-ALTER TABLE user ADD CONSTRAINT user_lattamResz_resz_id FOREIGN KEY (lattamResz) REFERENCES resz(id);
+ALTER TABLE resz ADD CONSTRAINT resz_evadSzam_sorozatok_id FOREIGN KEY (evadSzam) REFERENCES sorozatok(id);
+ALTER TABLE resz ADD CONSTRAINT resz_sorozatid_sorozatok_id FOREIGN KEY (sorozatid) REFERENCES sorozatok(id);
+ALTER TABLE saw ADD CONSTRAINT saw_uid_users_uid FOREIGN KEY (uid) REFERENCES users(uid);
+ALTER TABLE saw ADD CONSTRAINT saw_eid_filmek_id FOREIGN KEY (eid) REFERENCES filmek(id);
