@@ -19,6 +19,8 @@ $_GET['P'] = 'home';
 		case 'seeEpisodes' : require_once PROTECTED_DIR.'series/seeEpisodes.php'; break;
 
 		case 'search' : require_once PROTECTED_DIR.'search.php'; break;
+		
+		case 'addCategoryFromFile': isUserLoggedIn() && $_SESSION['permission']  > 0 ? require_once PROTECTED_DIR.'admin/updateFromFile.php' : header('Location: index.php'); break;
 
 		case 'addCategory': isUserLoggedIn() && $_SESSION['permission']  > 0 ? require_once PROTECTED_DIR.'admin/add_category.php' : header('Location: index.php'); break;
 		case 'editUser' : isUserLoggedIn() ? require_once PROTECTED_DIR.'user/editUser.php' : header('Location: index.php'); break;

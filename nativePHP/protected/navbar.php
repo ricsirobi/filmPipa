@@ -155,7 +155,16 @@
                       endif; ?> href="index.php?P=listUser">Felhasználók szerkesztése</a>
                       <a <?php if ($_GET['P'] == "addCategory") : echo "class='dropdown-item active'";
                       else : echo "class='dropdown-item'";
-                      endif; ?> href="index.php?P=addCategory">Kategóriák hozzáadása</a>
+                      endif; ?> href="index.php?P=addCategory">Kategória hozzáadása</a>
+                      <a <?php if ($_GET['P'] == "addCategoryFromFile") : echo "class='dropdown-item active'";
+                      else : echo "class='dropdown-item'";
+                      endif; ?> href="index.php?P=addCategoryFromFile">Kategóriák hozzáadása fájlból</a>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a <?php if ($_GET['P'] == "listUser") : echo "class='dropdown-item active'";
+                      else : echo "class='dropdown-item'";
+                      endif; ?> href="index.php?P=listUser">Felhasználók szerkesztése</a>
+                      
                 </div>
               </li>
             <?php endif; ?>
