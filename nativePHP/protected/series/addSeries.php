@@ -132,7 +132,6 @@ if (isset($_POST["addSeriesBtn"])) {
                     $category = $_POST["category"];
                     $cover = $_POST["series_cover"];
                     $addseriesquery = "INSERT INTO sorozatok(evad, resz, cim, kategoria, borito) VALUES ($season,$episode,\"".$stitle."\",$category,\"".$cover."\")";
-                    echo $addseriesquery;
                     executeQuery($addseriesquery);
                 } 
              else {

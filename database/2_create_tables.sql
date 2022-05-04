@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS kategoria;
 DROP TABLE IF EXISTS sorozatok;
 DROP TABLE IF EXISTS resz;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS saw;
+DROP TABLE IF EXISTS sawfilm;
+DROP TABLE IF EXISTS sawepisode;
 
 
 CREATE TABLE filmek (
@@ -41,7 +42,12 @@ email VARCHAR(45) NOT NULL,
 permission INT NOT NULL,
 profilepic INT NOT NULL DEFAULT 1);
 
-CREATE TABLE saw (
+CREATE TABLE sawfilm (
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+uid INT NOT NULL,
+fid INT NOT NULL);
+
+CREATE TABLE sawepisode (
 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 uid INT NOT NULL,
 eid INT NOT NULL);
@@ -50,5 +56,7 @@ ALTER TABLE filmek ADD CONSTRAINT filmek_kategoria_kategoria_id FOREIGN KEY (kat
 ALTER TABLE sorozatok ADD CONSTRAINT sorozatok_kategoria_kategoria_id FOREIGN KEY (kategoria) REFERENCES kategoria(id);
 ALTER TABLE resz ADD CONSTRAINT resz_evadSzam_sorozatok_id FOREIGN KEY (evadSzam) REFERENCES sorozatok(id);
 ALTER TABLE resz ADD CONSTRAINT resz_sorozatid_sorozatok_id FOREIGN KEY (sorozatid) REFERENCES sorozatok(id);
-ALTER TABLE saw ADD CONSTRAINT saw_uid_users_uid FOREIGN KEY (uid) REFERENCES users(uid);
-ALTER TABLE saw ADD CONSTRAINT saw_eid_filmek_id FOREIGN KEY (eid) REFERENCES filmek(id);
+ALTER TABLE sawfilm ADD CONSTRAINT sawfilm_uid_users_uid FOREIGN KEY (uid) REFERENCES users(uid);
+ALTER TABLE sawfilm ADD CONSTRAINT sawfilm_fid_filmek_id FOREIGN KEY (fid) REFERENCES filmek(id);
+ALTER TABLE sawepisode ADD CONSTRAINT sawepisode_uid_users_uid FOREIGN KEY (uid) REFERENCES users(uid);
+ALTER TABLE sawepisode ADD CONSTRAINT sawepisode_eid_resz_id FOREIGN KEY (eid) REFERENCES resz(id);

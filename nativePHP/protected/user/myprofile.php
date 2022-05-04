@@ -22,7 +22,37 @@
     <h1> Profilom: <?php echo $userinfo[0]["username"];?> </h1>
     <a href="index.php?P=setprofilepic">><img src='<?php echo PROFILE_PIC_DIR.$pic.".png";?>'/></a> 
     <div>
-        Ennyi időt szántam film és sorozat megtekintésre: 
+        Ennyi időt szántam sorozat részek megtekintésre: 
+        <?php 
+            $sql = "select sum(resz.hossz) as \"min\" from resz, sawepisode where ".$_SESSION["uid"]." = sawepisode.uid and sawepisode.eid = resz.id ";
+            $res = classList($sql);
+            if($res[0]["min"] == "")
+            {
+                echo 0;
+            }
+            else
+            {
+                echo $res[0]["min"];
+            }
+            
+        ?>
+        perc 
+    </div>
+    <div>
+    Ennyi időt szántam filmek megtekintésre: 
+        <?php
+            $sql = "select sum(filmek.hossz) as \"min\" from filmek, sawfilm where ".$_SESSION["uid"]." = sawfilm.uid and sawfilm.fid = filmek.id ";
+            $res = classList($sql);
+            if($res[0]["min"] == "")
+            {
+                echo 0;
+            }
+            else
+            {
+                echo $res[0]["min"];
+            }
+            ?>
+            perc 
 
     </div>
 </BODY>

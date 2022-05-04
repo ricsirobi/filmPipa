@@ -87,8 +87,9 @@ if (isset($_POST["searchBtn"])) {
             </head>
 
             <body>
+                <form action="index.php?P=seeAllFilm" method="post">
                 <div class="usersDiv">
-                    <h2><?php echo "Film találatok: $categoryname/$title";?></h2>
+                    <h2><?php echo "Film találatok: $categoryname/$title";?><br><input type="submit" name="saveSaw" value="Mentés"></h2>
                     <table class="table">
                         <form method="post">
                             <thead>
@@ -107,7 +108,7 @@ if (isset($_POST["searchBtn"])) {
                                         <td><?= $row['cim'] ?></td>
                                         <td><?= $row['hossz'] ?></td>
                                         <td><?= $row['kategoria'] ?></td>
-                                        <td> <input type='checkbox' value=<?= $row["id"] ?>> </td>
+                                        <td> <input type='checkbox' name=<?= $row["id"] ?> value=<?= $row["id"] ?>> </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -116,6 +117,13 @@ if (isset($_POST["searchBtn"])) {
                 </div>
             </body>
         <?php endif;
+        
+
+
+
+
+
+
     } else {
         $sql = "select sorozatok.id, cim,evad,resz, borito , name as kategoria
         FROM sorozatok, kategoria 

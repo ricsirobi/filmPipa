@@ -102,7 +102,7 @@
                 <a <?php if ($_GET['P'] == "seeAllFilm") : echo "class='dropdown-item active'";
                     else : echo "class='dropdown-item'";
                     endif; ?> href="index.php?P=seeAllFilm">Filmek megjelenítése</a>
-                <?php if ($_SESSION != NULL) : ?>
+                <?php if ($_SESSION != NULL && $_SESSION["permission"] > 0) : ?>
                   <a <?php if ($_GET['P'] == "addNewFilm") : echo "class='dropdown-item active'";
                       else : echo "class='dropdown-item'";
                       endif; ?> href="index.php?P=addNewFilm">Film hozzáadása </a>
@@ -117,7 +117,7 @@
                 <a <?php if ($_GET['P'] == "seeAllSeries") : echo "class='dropdown-item active'";
                     else : echo "class='dropdown-item'";
                     endif; ?> href="index.php?P=seeAllSeries">Sorozatok megjelenítése</a>
-                <?php if ($_SESSION != NULL) : ?>
+                <?php if ($_SESSION != NULL && $_SESSION["permission"] > 0) : ?>
                   <a <?php if ($_GET['P'] == "addNewSeries") : echo "class='dropdown-item active'";
                       else : echo "class='dropdown-item'";
                       endif; ?> href="index.php?P=addNewSeries">Sorozat hozzáadása </a>

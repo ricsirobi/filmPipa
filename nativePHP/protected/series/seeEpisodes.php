@@ -12,8 +12,9 @@ if ($result === NULL || empty($result)) : ?>
     </head>
 
     <body>
+    <form method="post" action="">
         <div class="usersDiv">
-            <h2><?=$_GET["title"].": ".$_GET["evad"].". évad"?></h2>
+            <h2><?=$_GET["title"].": ".$_GET["evad"].". évad"?><br><input type="submit" name="saveSaw" value="Mentés"></h2>
             <table class="table">
                 <form method="post">
                     <thead>
@@ -28,7 +29,7 @@ if ($result === NULL || empty($result)) : ?>
                             <tr>
                                 <td><?=$row["reszSzam"]?> </td>
                                 <td><?= $row['cim'] ?></td>
-                                <td> <input type='checkbox' value = <?=$row["id"]?>> </td>
+                                <td> <input type='checkbox' name=<?= $row["id"] ?> value=<?= $row["id"] ?>> </td>
                             </tr>
                         <?php endforeach; ?>
 
@@ -36,5 +37,27 @@ if ($result === NULL || empty($result)) : ?>
                 </form>
             </table>
         </div>
+    </form>
     </body>
 <?php endif; ?>
+
+
+<?php
+if (isset($_POST["saveSaw"])) {
+    $result = classList($sql);
+    echo $_POST[$row["id"]];
+    foreach ($result as $row) {
+        if ($_POST[$row["id"]] == true) {
+            $sqlif = "select * from sawepisode where uid = " . $_SESSION["uid"] . " and eid = " . $_POST[$row["id"]];
+            $ifNotExists = classList($sqlif);
+            if ($ifNotExists == null || empty($ifNotExists)) {
+                $sql = "iNSERT INTO sawepisode(uid, eid) VALUES (" . $_SESSION["uid"] . "," . $_POST[$row["id"]] . ")";
+            executeQuery($sql);
+            } else {
+               
+            }
+        }
+    }
+}
+
+?>
